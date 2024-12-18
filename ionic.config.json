@@ -1,0 +1,7 @@
+{
+  "name": "prodajaAutomobila",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
