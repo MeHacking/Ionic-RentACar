@@ -4,24 +4,46 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- Navigacija sa Tabovima -->
 <ion-tabs>
-  <ion-tabs>
-    <ion-tab-bar slot="bottom">
-      <ion-tab-button routerLink="/home">
-        <ion-icon name="home"></ion-icon>
-        <ion-label>Home</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button routerLink="/vasi-automobili">
-        <ion-icon name="car"></ion-icon>
-        <ion-label>Vaši Automobili</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button routerLink="/login">
-        <ion-icon name="log-in"></ion-icon>
-        <ion-label>Login</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
-  
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button routerLink="/home" routerLinkActive="active">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="/vasi-automobili" routerLinkActive="active">
+      <ion-icon name="car"></ion-icon>
+      <ion-label>Vaši Automobili</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="/login" routerLinkActive="active">
+      <ion-icon name="log-in"></ion-icon>
+      <ion-label>Login</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+  <ion-tab tab="login">
+    <ion-content class="login-content">
+      <!-- Formular za Login -->
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <ion-item class="form-item">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+        </ion-item>
+
+        <ion-item class="form-item">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+        </ion-item>
+
+        <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+
+        <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid">Login</ion-button>
+      </form>
+
+      <ion-button expand="full" (click)="register()">Register</ion-button>
+      <ion-button expand="full" (click)="logout()">Logout</ion-button>
+    </ion-content>
+  </ion-tab>
 </ion-tabs>

@@ -5,11 +5,11 @@
 export const environment = {
   firebase: {
     apiKey: "AIzaSyBpS2sFix3CGAlIr0L5TytOAJEVSzI4R8M",
-    authDomain: "ionic-rentacar.firebaseapp.com",
-    projectId: "ionic-rentacar",
-    storageBucket: "ionic-rentacar.firebasestorage.app",
-    messagingSenderId: "623838561224",
-    appId: "1:623838561224:web:1642bd2297265cd7ba36fd"
+  authDomain: "ionic-rentacar.firebaseapp.com",
+  projectId: "ionic-rentacar",
+  storageBucket: "ionic-rentacar.firebasestorage.app",
+  messagingSenderId: "623838561224",
+  appId: "1:623838561224:web:1642bd2297265cd7ba36fd"
   },
   production: false
 };
