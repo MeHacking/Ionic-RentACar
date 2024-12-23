@@ -17,8 +17,7 @@ export class LoginPage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Proverite da li je Firebase inicijalizovan pre nego što pokušate da koristite Firebase funkcionalnosti
-    const app = initializeApp(environment.firebase);
+   const app = initializeApp(environment.firebase);
   }
 
   async login() {
