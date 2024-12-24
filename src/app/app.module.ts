@@ -5,7 +5,7 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { FormsModule } from '@angular/forms';
 
 // Rad sa Firebase bazom podataka
-import { environment } from 'src/environments/environment';  // Dodajte import za environment
+import { environment } from 'src/environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 

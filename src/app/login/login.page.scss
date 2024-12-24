@@ -1,18 +1,18 @@
 ion-header[translucent] {
-    --ion-toolbar-background: rgba(255, 255, 255, 0.9); /* Razjasnite pozadinu za bolje vizuelno razdvajanje */
-  }
+  --ion-toolbar-background: rgba(255, 255, 255, 0.9); /* Razjasnite pozadinu za bolje vizuelno razdvajanje */
+}
+
+ion-tab{
+  padding-top: 40px;
+}
   
-  ion-content.login-content {
-    padding-top: 20px; /* Razmak između header-a i sadržaja */
-    margin-top: 10px;  /* Dodatni razmak ako je potrebno */
-  }
+ion-content.login-content {
+  padding-top: 30px; /* Razmak između header-a i sadržaja */
+  margin-top: 10px;  /* Dodatni razmak ako je potrebno */
+}
   
-  .form-item {
-    margin-bottom: 15px; /* Razmak između input polja */
-  }
-  
-  /* Takođe, možete dodati još razmaka ako je potrebno */
-  ion-item {
-    margin-top: 30px; /* Dodatni razmak između input polja i drugih elemenata */
-  }
+/* Takođe, možete dodati još razmaka ako je potrebno */
+ion-item {
+  margin-top: 30px; /* Dodatni razmak između input polja i drugih elemenata */
+}
   
