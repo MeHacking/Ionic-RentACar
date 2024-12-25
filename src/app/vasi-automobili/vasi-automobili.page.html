@@ -4,23 +4,44 @@
   </ion-toolbar>
 </ion-header>
 
+<!-- Navigacija sa Tabovima -->
 <ion-tabs>
-  <ion-tabs>
     <ion-tab-bar slot="bottom">
-      <ion-tab-button routerLink="/home">
-        <ion-icon name="home"></ion-icon>
-        <ion-label>Home</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button routerLink="/vasi-automobili">
-        <ion-icon name="car"></ion-icon>
-        <ion-label>Vaši Automobili</ion-label>
-      </ion-tab-button>
-  
-      <ion-tab-button routerLink="/login">
-        <ion-icon name="log-in"></ion-icon>
-        <ion-label>Login</ion-label>
-      </ion-tab-button>
-    </ion-tab-bar>
-  </ion-tabs>
+    <ion-tab-button routerLink="/home" routerLinkActive="active">
+      <ion-icon name="home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="/vasi-automobili" routerLinkActive="active">
+      <ion-icon name="car"></ion-icon>
+      <ion-label>Vaši Automobili</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button routerLink="/login" routerLinkActive="active">
+      <ion-icon name="log-in"></ion-icon>
+      <ion-label>Login</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+  <ion-tab tab="vasi-automobili">
+    <ion-content class="vasi-automobili-content">
+      <!-- Lista Svih Automobila -->
+      <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
+  <ion-list *ngIf="!loading && automobili.length > 0">
+    <ion-item *ngFor="let automobil of automobili">
+      <ion-thumbnail slot="start">
+        <ion-icon name="car-outline" size="large"></ion-icon>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ automobil.kompanija }} {{ automobil.model }}</h2>
+        <p>{{ automobil.kategorija }} - Godište: {{ automobil.godiste }}</p>
+        <p>{{ automobil.opis }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-text *ngIf="!loading && automobili.length === 0">
+    <p>Niste postavili nijedan automobil ili niste ulogovani.</p>
+  </ion-text>
+    </ion-content>
+  </ion-tab>
 </ion-tabs>

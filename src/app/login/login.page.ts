@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { Router } from '@angular/router';
-import { initializeApp } from 'firebase/app';  // Import Firebase
+import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -24,6 +24,8 @@ export class LoginPage implements OnInit {
     const auth = getAuth();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
+      const userId = userCredential.user.uid;
+      localStorage.setItem('userId', userId); // Smestanje u lokalnu memoriju
       this.router.navigate(['/home']);  // Preusmeravanje na stranicu nakon prijave
     } catch (error: any) {
       this.errorMessage = error.message;
@@ -34,6 +36,7 @@ export class LoginPage implements OnInit {
     const auth = getAuth();
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
+      const userId = userCredential.user.uid;
       this.router.navigate(['/home']);  // Preusmeravanje na stranicu nakon registracije
     } catch (error: any) {
       this.errorMessage = error.message;
@@ -44,7 +47,8 @@ export class LoginPage implements OnInit {
     const auth = getAuth();
     try {
       await signOut(auth);
-      this.router.navigate(['/login']);  // Preusmeravanje na login stranicu nakon odjave
+      localStorage.setItem('userId', "izlogovan"); // Brisanje iz lokalne memorije
+      this.router.navigate(['/home']);  // Preusmeravanje na login stranicu nakon odjave
     } catch (error: any) {
       this.errorMessage = error.message;
     }
