@@ -3,6 +3,7 @@ import { DataService, Automobil } from '../service/data.service';
 import { Subscription } from 'rxjs';
 import { ModalController } from '@ionic/angular';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
