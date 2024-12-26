@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Dodaj Automobil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="addCar()" #carForm="ngForm">
+    <ion-item>
+      <ion-label position="floating">Godište</ion-label>
+      <ion-input type="number" [(ngModel)]="carData.godiste" name="godiste" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Kompanija</ion-label>
+      <ion-input type="text" [(ngModel)]="carData.kompanija" name="kompanija" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Model</ion-label>
+      <ion-input type="text" [(ngModel)]="carData.model" name="model" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Opis</ion-label>
+      <ion-textarea [(ngModel)]="carData.opis" name="opis" required></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Kategorija</ion-label>
+      <ion-input type="text" [(ngModel)]="carData.kategorija" name="kategorija" required></ion-input>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" [disabled]="!carForm.valid">Dodaj Automobil</ion-button>
+  </form>
+</ion-content>
