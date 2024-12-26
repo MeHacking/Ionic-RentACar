@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'updatepage',
-    loadChildren: () => import('./updatepage/updatepage.module').then( m => m.UpdatepagePageModule)
+    loadChildren: () => import('./updatepage/updatepage.module').then( m => m.UpdatePageModule)
   },
 
 ];
