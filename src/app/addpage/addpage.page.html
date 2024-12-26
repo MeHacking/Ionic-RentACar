@@ -33,4 +33,11 @@
 
     <ion-button expand="block" type="submit" [disabled]="!carForm.valid">Dodaj Automobil</ion-button>
   </form>
+
+  <!-- Floating Action Button -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button routerLink="/vasi-automobili" color="primary">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
