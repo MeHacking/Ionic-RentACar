@@ -14,8 +14,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { DeleteConfirmationModal } from './delete-confirmation-modal/delete-confirmation-modal.component';
+
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DeleteConfirmationModal],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

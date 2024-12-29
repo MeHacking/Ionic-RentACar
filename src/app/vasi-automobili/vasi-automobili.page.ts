@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { DataService } from '../service/data.service';
+import { DeleteConfirmationModal } from '../delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-vasi-automobili',
@@ -10,32 +11,44 @@ import { DataService } from '../service/data.service';
 })
 export class VasiAutomobiliPage implements OnInit {
 
-  automobili: any; // Lista za čuvanje automobila
-    loading: boolean = true; // Prikaz statusa učitavanja
-    sub: Subscription = new Subscription;
-  
-  
-    constructor(
-      public modalCtrl: ModalController,
-      private dataService: DataService) {}
-  
-    ngOnInit(): void {
-      this.getData();
-    }
-  
-    ngOnDestroy(): void{
-      this.sub.unsubscribe();
-    }
-  
-    async getData() {
-      this.sub = this.dataService.getAutomobilUser().subscribe((res) => {
-      this.automobili = res;
-      this.loading = false; // Isključuje status učitavanja
-      console.log(this.automobili);
-      });
-    }
-    async deleteAutomobilUser(automobil: any) {
-      await this.dataService.deleteAutomobil(automobil);
-    }
+  automobili: any;
+  loading: boolean = true;
+  sub: Subscription = new Subscription;
 
+  constructor(
+    public modalCtrl: ModalController,
+    private dataService: DataService) {}
+
+  ngOnInit(): void {
+    this.getData();
+  }
+
+  ngOnDestroy(): void{
+    this.sub.unsubscribe();
+  }
+
+  async getData() {
+    this.sub = this.dataService.getAutomobilUser().subscribe((res) => {
+      this.automobili = res;
+      this.loading = false;
+    });
+  }
+
+  async confirmDelete(automobil: any) {
+    const modal = await this.modalCtrl.create({
+      component: DeleteConfirmationModal,
+      componentProps: { automobil }
+    });
+    await modal.present();
+
+    const { data } = await modal.onDidDismiss();
+    if (data && data.confirmed) {
+      this.deleteAutomobilUser(automobil);
+    }
+  }
+
+  async deleteAutomobilUser(automobil: any) {
+    await this.dataService.deleteAutomobil(automobil);
+    this.getData(); // Ponovno učitaj podatke nakon brisanja
+  }
 }

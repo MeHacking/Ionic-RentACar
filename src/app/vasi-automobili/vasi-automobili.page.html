@@ -45,6 +45,15 @@
             [queryParams]="{ id: automobil.id }">
             <ion-icon name="settings-outline"></ion-icon>
           </ion-button>
+
+          <ion-button 
+            color="danger" 
+            fill="clear" 
+            slot="end" 
+            (click)="confirmDelete(automobil)">
+           <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
+
         </ion-item>
       </ion-list>
 
@@ -56,7 +65,7 @@
       </ion-fab>
 
       <ion-text *ngIf="!loading && automobili.length === 0">
-        <p>Niste postavili nijedan automobil ili niste ulogovani.</p>
+        <p>Niste postavili nijedan automobil ili niste prjavljeni.</p>
       </ion-text>
     </ion-content>
   </ion-tab>

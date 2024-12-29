@@ -15,4 +15,10 @@ ion-content.login-content {
 ion-item {
   margin-top: 30px; /* Dodatni razmak između input polja i drugih elemenata */
 }
-  
+ 
+.login-content p {
+  font-size: 18px;
+  text-align: center;
+  margin-left: 16px;
+  margin-right: 16px;
+}

@@ -17,7 +17,7 @@ import { DataService } from '../service/data.service';
     IonicModule,
     VasiAutomobiliPageRoutingModule
   ],
-  declarations: [VasiAutomobiliPage]
+  declarations: [VasiAutomobiliPage],
 })
 export class VasiAutomobiliPageModule {
 
