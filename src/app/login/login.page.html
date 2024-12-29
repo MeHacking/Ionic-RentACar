@@ -25,15 +25,13 @@
 
   <ion-tab tab="login">
     <ion-content class="login-content">
-      <!-- Ako je korisnik ulogovan, prikazuje se samo Logout dugme -->
       <div *ngIf="isLoggedIn">
-        <p>Već ste prijavljeni. Ukoloiko želite da se odjavite ili promenite nalog pritisnite dugme ispod.</p>
+        <p>Već ste prijavljeni. Ukoliko želite da se odjavite ili promenite nalog, pritisnite dugme ispod.</p>
         <ion-button expand="full" (click)="logout()">Logout</ion-button>
       </div>
 
-      <!-- Ako korisnik nije ulogovan, prikazuju se form za login i registraciju -->
       <div *ngIf="!isLoggedIn">
-        <form (ngSubmit)="login()" #loginForm="ngForm">
+        <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
           <ion-item class="form-item">
             <ion-label position="floating">Email</ion-label>
             <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
@@ -44,12 +42,22 @@
             <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
           </ion-item>
 
+          <!-- Polje za unos telefona, prikazano samo kada je 'isRegisterMode' aktivno -->
+          <div *ngIf="isRegisterMode">
+            <ion-item class="form-item">
+              <ion-label position="floating">Telefon</ion-label>
+              <ion-input [(ngModel)]="phone" name="phone" type="tel" required></ion-input>
+            </ion-item>
+          </div>
+
           <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
 
-          <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid">Login</ion-button>
+          <ion-button expand="full" type="submit" [disabled]="!loginForm.form.valid">{{ isRegisterMode ? 'Register' : 'Login' }}</ion-button>
         </form>
 
-        <ion-button expand="full" (click)="register()" [disabled]="!loginForm.form.valid">Register</ion-button>
+        <ion-button expand="full" (click)="toggleMode()">
+          {{ isRegisterMode ? 'Back to Login' : 'Switch to Register' }}
+        </ion-button>
       </div>
     </ion-content>
   </ion-tab>

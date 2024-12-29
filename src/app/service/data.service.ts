@@ -11,7 +11,7 @@ import {
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { query, where } from 'firebase/firestore';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';  // Modularni import
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 
 
@@ -23,6 +23,11 @@ export interface Automobil {
   kategorija: string;
   godiste: number;
   userId?: string; 
+}
+
+export interface Korisnik {
+  userId?: string;
+  telefon: string;
 }
 
 @Injectable({
@@ -41,6 +46,11 @@ export class DataService {
   }
 
   // Create operacije
+
+  addKorisnik(korisnik: Korisnik) {
+    const korisniciRef = collection(this.firestore, 'korisnici');
+    return addDoc(korisniciRef, korisnik);
+  }
 
   addAutomobil(automobil: Automobil) {
     const automobilRef = collection(this.firestore, 'automobili');

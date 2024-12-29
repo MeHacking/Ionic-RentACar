@@ -3,6 +3,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
+import { DataService } from '../service/data.service'; // Dodajte ovaj import za DataService
 
 @Component({
   selector: 'app-login',
@@ -12,21 +13,31 @@ import { environment } from 'src/environments/environment';
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
+  phone: string = ''; // Polje za broj telefona
   errorMessage: string = '';
   isLoggedIn: boolean = false;
+  isRegisterMode: boolean = false; // Flag za switch između login i register moda
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private dataService: DataService) {}
 
   ngOnInit() {
-    // Inicijalizacija Firebase aplikacije
     const app = initializeApp(environment.firebase);
-
-    // Proveriti da li je korisnik već ulogovan na osnovu 'userId' u localStorage
     const userId = localStorage.getItem('userId');
-    if (userId && userId !== 'izlogovan') {
-      this.isLoggedIn = true;
+    this.isLoggedIn = userId && userId !== 'izlogovan' ? true : false;
+  }
+
+  // Toggle između login i register moda
+  toggleMode() {
+    this.isRegisterMode = !this.isRegisterMode;
+    this.errorMessage = ''; // Resetovanje greške pri promeni moda
+  }
+
+  // Handler za submit, može biti login ili register u zavisnosti od moda
+  async onSubmit() {
+    if (this.isRegisterMode) {
+      await this.register();
     } else {
-      this.isLoggedIn = false;
+      await this.login();
     }
   }
 
@@ -35,9 +46,9 @@ export class LoginPage implements OnInit {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, this.email, this.password);
       const userId = userCredential.user.uid;
-      localStorage.setItem('userId', userId); // Smestanje u lokalnu memoriju
+      localStorage.setItem('userId', userId);
       this.isLoggedIn = true;
-      this.router.navigate(['/home']);  // Preusmeravanje na stranicu nakon prijave
+      this.router.navigate(['/home']);
     } catch (error: any) {
       this.errorMessage = error.message;
     }
@@ -48,8 +59,16 @@ export class LoginPage implements OnInit {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, this.email, this.password);
       const userId = userCredential.user.uid;
-      localStorage.setItem('userId', userId); // Smestanje u lokalnu memoriju
-      this.router.navigate(['/home']);  // Preusmeravanje na stranicu nakon registracije
+      localStorage.setItem('userId', userId);
+
+      // Dodajemo korisnika u kolekciju "korisnici"
+      await this.dataService.addKorisnik({
+        userId: userId,
+        telefon: this.phone,
+      });
+
+      this.isLoggedIn = true;
+      this.router.navigate(['/home']);
     } catch (error: any) {
       this.errorMessage = error.message;
     }
@@ -59,9 +78,9 @@ export class LoginPage implements OnInit {
     const auth = getAuth();
     try {
       await signOut(auth);
-      localStorage.setItem('userId', "izlogovan"); // Brisanje iz lokalne memorije
+      localStorage.setItem('userId', 'izlogovan');
       this.isLoggedIn = false;
-      this.router.navigate(['/login']);  // Preusmeravanje na login stranicu nakon odjave
+      this.router.navigate(['/login']);
     } catch (error: any) {
       this.errorMessage = error.message;
     }
