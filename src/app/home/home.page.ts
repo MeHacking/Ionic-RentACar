@@ -28,12 +28,13 @@ export class HomePage implements OnInit {
   }
 
   async getData() {
-    this.sub = this.dataService.getAutomobil().subscribe((res) => {
-    this.automobili = res;
-    this.loading = false; // Isključuje status učitavanja
-    console.log(this.automobili);
+    this.sub = this.dataService.getAutomobiliWithUsers().subscribe((res) => {
+      this.automobili = res;
+      this.loading = false; // Isključuje status učitavanja
+      console.log(this.automobili);
     });
   }
+  
   async deleteAutomobil(automobil: any) {
     await this.dataService.deleteAutomobil(automobil);
   }

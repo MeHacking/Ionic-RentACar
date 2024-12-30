@@ -10,6 +10,7 @@ import {
 
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { query, where } from 'firebase/firestore';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
@@ -44,6 +45,41 @@ export class DataService {
     const automobiliRef = collection(this.firestore, 'automobili');
     return collectionData(automobiliRef, { idField: 'id' });
   }
+
+  getKorisnici() {
+    const korisniciRef = collection(this.firestore, 'korisnici');
+    return collectionData(korisniciRef, { idField: 'id' }).pipe(
+      map((korisnici: any[]) => {
+        return korisnici.map(korisnik => ({
+          ...korisnik,
+          userId: korisnik.userId || korisnik.id // Osiguraj da userId postoji
+        }));
+      })
+    );
+  }
+
+  getAutomobiliWithUsers() {
+    const automobiliRef = collection(this.firestore, 'automobili');
+    
+    return collectionData(automobiliRef, { idField: 'id' }).pipe(
+      switchMap((automobili: any[]) => {
+        return this.getKorisnici().pipe(
+          map((korisnici: any[]) => {
+            return automobili.map(automobil => {
+              const korisnik = korisnici.find(k => k.userId === automobil.userId);
+              return {
+                ...automobil,
+                telefon: korisnik?.telefon || 'N/A'
+              };
+            });
+          })
+        );
+      })
+    );
+  }
+  
+  
+
 
   // Create operacije
 

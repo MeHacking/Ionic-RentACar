@@ -27,22 +27,22 @@
     <ion-content class="home-content">
       <!-- Lista Svih Automobila -->
       <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
-      <ion-list *ngIf="!loading && automobili.length > 0">
-        <ion-item *ngFor="let automobil of automobili">
-          <ion-thumbnail slot="start">
-            <ion-icon name="car-outline" size="large"></ion-icon>
-          </ion-thumbnail>
-          <ion-label>
-            <h2>{{ automobil.kompanija }} {{ automobil.model }}</h2>
-            <p>{{ automobil.kategorija }} - Godište: {{ automobil.godiste }}</p>
-            <p>{{ automobil.opis }}</p>
-            <p *ngIf="automobil.telefon">Kontakt telefon: {{ automobil.telefon }}</p>
-          </ion-label>
-        </ion-item>
-      </ion-list>
-      <ion-text *ngIf="!loading && automobili.length === 0">
-        <p>Nema automobila u bazi.</p>
-      </ion-text>
+  <ion-list *ngIf="!loading && automobili.length > 0">
+    <ion-item *ngFor="let automobil of automobili">
+      <ion-thumbnail slot="start">
+        <ion-icon name="car-outline" size="large"></ion-icon>
+      </ion-thumbnail>
+      <ion-label>
+        <h2>{{ automobil.kompanija }} {{ automobil.model }}</h2>
+        <p>{{ automobil.kategorija }} - Godište: {{ automobil.godiste }}</p>
+        <p>{{ automobil.opis }}</p>
+        <p>Telefon korisnika: {{ automobil.telefon }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-text *ngIf="!loading && automobili.length === 0">
+    <p>Nema automobila u bazi.</p>
+  </ion-text>
     </ion-content>
   </ion-tab>
 </ion-tabs>
