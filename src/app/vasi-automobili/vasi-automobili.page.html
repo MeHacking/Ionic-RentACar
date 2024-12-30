@@ -28,7 +28,7 @@
 
       <!-- Korisnik nije prijavljen -->
       
-      <ion-text *ngIf="!isLoggedIn && !loading">
+      <ion-text *ngIf="!isLoggedIn && !loading" style="text-align: center;">
         <p>Morate biti prijavljeni da biste videli vaše automobile.</p>
       </ion-text>
 
@@ -70,7 +70,7 @@
       </ion-fab>
 
       <!-- Ako je lista prazna -->
-      <ion-text *ngIf="isLoggedIn && !loading && automobili.length === 0">
+      <ion-text *ngIf="isLoggedIn && !loading && automobili.length === 0" style="text-align: center;">
         <p>Niste postavili nijedan automobil.</p>
       </ion-text>
 

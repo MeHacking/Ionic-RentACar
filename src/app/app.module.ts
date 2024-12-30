@@ -24,7 +24,7 @@ import { DeleteConfirmationModal } from './delete-confirmation-modal/delete-conf
     AppRoutingModule,
     FormsModule,
     // Inicijalizacija Firebase aplikacije
-    provideFirebaseApp(() => initializeApp(environment.firebase)),  // Ovdje koristite environment
+    provideFirebaseApp(() => initializeApp(environment.firebase)), 
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),  // Povezivanje Firebase Auth-a
   ],

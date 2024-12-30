@@ -26,7 +26,7 @@ export class UpdatePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Preuzimanje ID-a automobila iz query parametara i čuvanje u this.carId
+    // Preuzimanje ID-a automobila iz upita i cuvanje u this.carId
     this.carId = this.route.snapshot.queryParamMap.get('id') || '';
     if (this.carId) {
       this.loadCarData(this.carId);
@@ -35,15 +35,13 @@ export class UpdatePage implements OnInit {
     }
   }
 
-  // Funkcija za učitavanje podataka o automobilu iz Firestore-a
+  // Učitavanje podataka o automobilu
   async loadCarData(id: string) {
     try {
-      // Kreiramo referencu na dokument koristeći ID iz URL-a (id dokumenta Firestore-a)
       const carRef = doc(this.firestore, `automobili/${id}`);
       const carSnap = await getDoc(carRef);
       
       if (carSnap.exists()) {
-        // Ako je dokument pronađen, učitaj podatke
         this.carData = { id, ...carSnap.data() } as any;
       } else {
         console.error('Automobil sa tim ID-em nije pronađen.');
@@ -53,7 +51,6 @@ export class UpdatePage implements OnInit {
     }
   }
 
-  // Funkcija za ažuriranje podataka o automobilu
   async updateCar() {
     if (!this.carId) {
       console.error('ID automobila nije definisan.');
@@ -61,7 +58,6 @@ export class UpdatePage implements OnInit {
     }
 
     try {
-      // Proveravamo tipove podataka pre nego što šaljemo u Firestore
       const { kompanija, model, opis, kategorija, godiste } = this.carData;
 
       if (
@@ -75,7 +71,6 @@ export class UpdatePage implements OnInit {
         return;
       }
 
-      // Dokument koji treba ažurirati
       const carRef = doc(this.firestore, 'automobili', this.carId);
 
       // Ažuriranje podataka

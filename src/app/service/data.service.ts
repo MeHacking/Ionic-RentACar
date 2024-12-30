@@ -52,7 +52,7 @@ export class DataService {
       map((korisnici: any[]) => {
         return korisnici.map(korisnik => ({
           ...korisnik,
-          userId: korisnik.userId || korisnik.id // Osiguraj da userId postoji
+          userId: korisnik.userId || korisnik.id 
         }));
       })
     );
@@ -101,20 +101,15 @@ export class DataService {
     }
   
     try {
-      // Ako je id broj, konvertujte ga u string pre nego što ga koristite u doc funkciji
-      const automobilId = String(automobil.id); // Konvertovanje ID-a u string
-  
-      // Prvo, pretražujemo dokument pomoću dokument ID-a iz URL-a (Firebase dokument ID)
-      const automobilRef = doc(this.firestore, 'automobili', automobilId); // ID koji se koristi za dokument
-  
-      // Dohvatimo dokument sa odgovarajućim ID-em
+      const automobilId = String(automobil.id);
+      const automobilRef = doc(this.firestore, 'automobili', automobilId); 
       const docSnap = await getDoc(automobilRef);
   
       if (!docSnap.exists()) {
         throw new Error(`Dokument sa ID-om ${automobilId} ne postoji.`);
       }
   
-      // Ažuriramo dokument sa novim podacima
+      // Ažuriranje dokumenta
       await updateDoc(automobilRef, {
         kompanija: automobil.kompanija,
         model: automobil.model,
@@ -130,9 +125,6 @@ export class DataService {
     }
   }
   
-  
-  
-
   // Delete operacije
 
   deleteAutomobil(automobil: Automobil) {

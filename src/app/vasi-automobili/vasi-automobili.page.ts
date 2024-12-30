@@ -25,7 +25,7 @@ export class VasiAutomobiliPage implements OnInit {
       if (this.isLoggedIn) {
         this.getData(); // Učitaj podatke samo ako je korisnik prijavljen
       } else {
-        this.loading = false; // Isključuje spinner odmah ako nije prijavljen
+        this.loading = false; 
       }
     }
 

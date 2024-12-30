@@ -20,29 +20,26 @@ export class AddPage {
 
   async addCar() {
     try {
-      // Generate a random ID
+      // Generisanje id-ja
       const id = Math.floor(Math.random() * 1000000).toString();
 
-      // Get userId from local storage
+      // Citanje id-a iz lokalne memorije 
       const userId = localStorage.getItem('userId');
       if (!userId) {
         throw new Error('Korisnik nije prijavljen.');
       }
 
-      // Prepare data for Firebase
       const carDataWithId = {
         ...this.carData,
         id: +id,
         userId: userId,
       };
 
-      // Reference to the 'automobili' collection
       const automobiliRef = collection(this.firestore, 'automobili');
 
-      // Add document to Firebase
+      // Dodavanje dokumenta u bazu
       await addDoc(automobiliRef, carDataWithId);
 
-      // Show success message or navigate back
       console.log('Automobil je uspešno dodat.');
       this.navCtrl.back();
     } catch (error: any) {

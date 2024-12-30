@@ -3,7 +3,7 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 import { Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
 import { environment } from 'src/environments/environment';
-import { DataService } from '../service/data.service'; // Dodajte ovaj import za DataService
+import { DataService } from '../service/data.service'; 
 
 @Component({
   selector: 'app-login',
@@ -13,10 +13,10 @@ import { DataService } from '../service/data.service'; // Dodajte ovaj import za
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
-  phone: string = ''; // Polje za broj telefona
+  phone: string = ''; 
   errorMessage: string = '';
   isLoggedIn: boolean = false;
-  isRegisterMode: boolean = false; // Flag za switch između login i register moda
+  isRegisterMode: boolean = false; 
 
   constructor(private router: Router, private dataService: DataService) {}
 
@@ -26,13 +26,12 @@ export class LoginPage implements OnInit {
     this.isLoggedIn = userId && userId !== 'izlogovan' ? true : false;
   }
 
-  // Toggle između login i register moda
   toggleMode() {
     this.isRegisterMode = !this.isRegisterMode;
-    this.errorMessage = ''; // Resetovanje greške pri promeni moda
+    this.errorMessage = ''; 
   }
 
-  // Handler za submit, može biti login ili register u zavisnosti od moda
+  // Handler za submit
   async onSubmit() {
     if (this.isRegisterMode) {
       await this.register();
@@ -61,7 +60,6 @@ export class LoginPage implements OnInit {
       const userId = userCredential.user.uid;
       localStorage.setItem('userId', userId);
 
-      // Dodajemo korisnika u kolekciju "korisnici"
       await this.dataService.addKorisnik({
         userId: userId,
         telefon: this.phone,
@@ -80,7 +78,7 @@ export class LoginPage implements OnInit {
       await signOut(auth);
       localStorage.setItem('userId', 'izlogovan');
       this.isLoggedIn = false;
-      this.router.navigate(['/login']);
+      window.location.reload();
     } catch (error: any) {
       this.errorMessage = error.message;
     }
