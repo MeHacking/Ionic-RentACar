@@ -14,14 +14,20 @@ export class VasiAutomobiliPage implements OnInit {
   automobili: any;
   loading: boolean = true;
   sub: Subscription = new Subscription;
+  isLoggedIn: boolean = false;
 
   constructor(
     public modalCtrl: ModalController,
     private dataService: DataService) {}
 
-  ngOnInit(): void {
-    this.getData();
-  }
+    ngOnInit(): void {
+      this.isLoggedIn = !!localStorage.getItem('userId') && localStorage.getItem('userId') !== 'izlogovan';
+      if (this.isLoggedIn) {
+        this.getData(); // Učitaj podatke samo ako je korisnik prijavljen
+      } else {
+        this.loading = false; // Isključuje spinner odmah ako nije prijavljen
+      }
+    }
 
   ngOnDestroy(): void{
     this.sub.unsubscribe();

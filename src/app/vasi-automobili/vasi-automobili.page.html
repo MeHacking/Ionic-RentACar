@@ -25,9 +25,15 @@
 
   <ion-tab tab="vasi-automobili">
     <ion-content class="vasi-automobili-content">
+
+      <!-- Korisnik nije prijavljen -->
+      
+      <ion-text *ngIf="!isLoggedIn && !loading">
+        <p>Morate biti prijavljeni da biste videli vaše automobile.</p>
+      </ion-text>
+
       <!-- Lista Svih Automobila -->
-      <ion-spinner *ngIf="loading" color="primary"></ion-spinner>
-      <ion-list *ngIf="!loading && automobili.length > 0">
+       <ion-list *ngIf="isLoggedIn && !loading && automobili.length > 0">
         <ion-item *ngFor="let automobil of automobili">
           <ion-thumbnail slot="start">
             <ion-icon name="car-outline" size="large"></ion-icon>
@@ -57,16 +63,24 @@
         </ion-item>
       </ion-list>
 
-      <!-- Dugme za dodavanje automobila -->
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="!loading && automobili.length > 0">
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isLoggedIn && !loading && automobili.length > 0">
         <ion-fab-button routerLink="/addpage" color="primary">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
 
-      <ion-text *ngIf="!loading && automobili.length === 0">
-        <p>Niste postavili nijedan automobil ili niste prjavljeni.</p>
+      <!-- Ako je lista prazna -->
+      <ion-text *ngIf="isLoggedIn && !loading && automobili.length === 0">
+        <p>Niste postavili nijedan automobil.</p>
       </ion-text>
+
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="isLoggedIn && !loading && automobili.length === 0">
+        <ion-fab-button routerLink="/addpage" color="primary">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+
     </ion-content>
   </ion-tab>
 </ion-tabs>
